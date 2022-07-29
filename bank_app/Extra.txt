@@ -1,0 +1,122 @@
+	// testone := &models.Branch{
+	// 	IfscCode:      "IFSCBANK008",
+	// 	FkBankId:      4,
+	// 	BranchName:    "IndraNagar",
+	// 	BranchAddress: "Lucknow",
+	// }
+
+	// testone := &models.Customer{
+	// 	FirstName:     "Gopi",
+	// 	LastName:      "Bahu",
+	// 	PanNumber:     "ABCDEF7552",
+	// 	AadharNumber:  123456789123,
+	// 	DOB:           "1992-11-17",
+	// 	Email:         "bahu@gmail.com",
+	// 	ContactNumber: 9856491712,
+	// 	Addr:          "Mumbai",
+	// 	Gender:        "Female",
+	// 	Occupation:    "Laptop Cleaner",
+	// 	FkBankId:      2,
+	// }
+
+	// testone := &models.Account{
+	// 	FkCustomerId:   1,
+	// 	AccountNumber:  1235963191,
+	// 	IsActive:       true,
+	// 	AccountType:    "Saving Account",
+	// 	CurrentBalance: 142064590,
+	// 	FkIfscCode:     "IFSCBANK007",
+	// }
+
+	// testone := &models.Loan{
+	// 	FkCustomerId:    7,
+	// 	LoanAmount:      10000,
+	// 	LoanTerm:        1,
+	// 	LoanInterest:    8,
+	// 	TotalInterest:   4557,
+	// 	Installments:    36,
+	// 	MonthlyAmount:   520,
+	// 	MonthlyInterest: 48,
+	// }
+	// testone := &models.Transaction{
+	// 	FkAccountId:             5,
+	// 	CreditedAmount:          42069,
+	// 	DebitedAmount:           0,
+	// 	RunningBalance:          620000,
+	// 	OtherPartyIfsc:          "IFSCBANK001",
+	// 	OtherPartyAccountNumber: 1234567890,
+	// 	OtherPartyBankName:      "AXIS Bank",
+	// 	OtherPartyBranchName:    "VibhutiKhand",
+	// }
+	// _, err := db.Model(testone).Insert()
+	// if err != nil {
+	// 	panic(err)
+	// }
+	var story []models.Customer
+	// err := db.Model(story).
+	// 	Where("customer_id = ?", 1).
+	// 	Select("FirstName")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	fmt.Println(reflect.TypeOf(story))
+	db.Model(&story).Where("customer_id=2").Select()
+	fmt.Println(story)
+	story1 := &models.Customer{
+		FirstName: "Mihecka",
+		LastName:  "Jain1",
+	}
+	db.Model(story1).Column("first_name", "last_name").Where("customer_id = 2").Update()
+	fmt.Println(story1)
+	var story2 models.Customer
+	// err := db.Model(story).
+	// 	Where("customer_id = ?", 1).
+	// 	Select("FirstName")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	db.Model(&story2).Where("customer_id=2").Select()
+	fmt.Println(story2)
+}
+// story := &models.Customer{
+// 	-- 	FirstName: "Mihecka",
+// 	-- 	LastName:  "Jain1",
+// 	-- }
+// 	-- // err := db.Model(story).
+// 	-- // 	Where("customer_id = ?", 1).
+// 	-- // 	Select("FirstName")
+// 	-- // if err != nil {
+// 	-- // 	panic(err)
+// 	-- // }
+// 	-- db.Model(&story).Column("first_name", "last_name").Where("customer_id = 2").Update()
+// 	-- u := new(models.Account)
+// 	-- pg.Model(&u).Where("customer_id = 2").Select()
+// 	-- fmt.Println(u)
+// 	-- return
+
+
+-- story := &models.Customer{
+-- 	FirstName: "Mihecka",
+-- 	LastName:  "Jain1",
+-- }
+-- // err := db.Model(story).
+-- // 	Where("customer_id = ?", 1).
+-- // 	Select("FirstName")
+-- // if err != nil {
+-- // 	panic(err)
+-- // }
+-- db.Model(&story).Column("first_name", "last_name").Where("customer_id = 2").Update()
+-- u := new(models.Account)
+-- pg.Model(&u).Where("customer_id = 2").Select()
+-- fmt.Println(u)
+-- return
+
+
+
+
+ALTER TABLE "accounts"
+DROP CONSTRAINT "accounts_fk_customer_id_fkey",
+ADD CONSTRAINT "accounts_fk_customer_id_fkey"
+  FOREIGN KEY ("customer_id")
+  REFERENCES "customers"(customer_id)
+  ON DELETE CASCADE;
